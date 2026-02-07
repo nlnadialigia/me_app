@@ -1,0 +1,46 @@
+{
+  "pt-BR": {
+    "common": {
+      "admin": "Admin",
+      "viewPortfolio": "Ver Portfolio",
+      "signOut": "Sair",
+      "save": "Salvar",
+      "saving": "Salvando...",
+      "edit": "Editar",
+      "delete": "Excluir",
+      "add": "Adicionar",
+      "new": "Novo",
+      "cancel": "Cancelar",
+      "loading": "Carregando..."
+    },
+    "home": {
+      "myProjects": "Meus Projetos",
+      "noProjects": "Nenhum projeto adicionado ainda.",
+      "viewProject": "Ver Projeto",
+      "allRightsReserved": "Todos os direitos reservados.",
+      "description": "Portfolio profissional de uma desenvolvedora Full Stack JavaScript e Python"
+    }
+  },
+  "en": {
+    "common": {
+      "admin": "Admin",
+      "viewPortfolio": "View Portfolio",
+      "signOut": "Sign Out",
+      "save": "Save",
+      "saving": "Saving...",
+      "edit": "Edit",
+      "delete": "Delete",
+      "add": "Add",
+      "new": "New",
+      "cancel": "Cancel",
+      "loading": "Loading..."
+    },
+    "home": {
+      "myProjects": "My Projects",
+      "noProjects": "No projects added yet.",
+      "viewProject": "View Project",
+      "allRightsReserved": "All rights reserved.",
+      "description": "Professional portfolio of a Full Stack JavaScript and Python developer"
+    }
+  }
+}
