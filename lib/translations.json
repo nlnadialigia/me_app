@@ -11,7 +11,8 @@
       "add": "Adicionar",
       "new": "Novo",
       "cancel": "Cancelar",
-      "loading": "Carregando..."
+      "loading": "Carregando...",
+      "explore": "Explorar"
     },
     "home": {
       "myProjects": "Meus Projetos",
@@ -19,6 +20,15 @@
       "viewProject": "Ver Projeto",
       "allRightsReserved": "Todos os direitos reservados.",
       "description": "Portfolio profissional de uma desenvolvedora Full Stack JavaScript e Python"
+    },
+    "explore": {
+      "aboutMe": "Sobre mim",
+      "projects": "Projetos",
+      "myProjects": "Meus Projetos",
+      "projectsDesc": "Confira alguns dos meus trabalhos e projetos",
+      "noProjects": "Nenhum projeto adicionado ainda",
+      "viewProject": "Ver Projeto",
+      "allRightsReserved": "Todos os direitos reservados."
     }
   },
   "en": {
@@ -33,7 +43,8 @@
       "add": "Add",
       "new": "New",
       "cancel": "Cancel",
-      "loading": "Loading..."
+      "loading": "Loading...",
+      "explore": "Explore"
     },
     "home": {
       "myProjects": "My Projects",
@@ -41,6 +52,15 @@
       "viewProject": "View Project",
       "allRightsReserved": "All rights reserved.",
       "description": "Professional portfolio of a Full Stack JavaScript and Python developer"
+    },
+    "explore": {
+      "aboutMe": "About me",
+      "projects": "Projects",
+      "myProjects": "My Projects",
+      "projectsDesc": "Check out some of my work and projects",
+      "noProjects": "No projects added yet",
+      "viewProject": "View Project",
+      "allRightsReserved": "All rights reserved."
     }
   }
 }
