@@ -4,10 +4,11 @@ type Profile = {
   id?: string;
   name?: string | null;
   title?: string | null;
-  bio?: string | null;
+  bio?: string[] | null;
   githubUrl?: string | null;
   linkedinUrl?: string | null;
   email?: string | null;
+  avatarUrl?: string | null;
 };
 
 const fetchProfile = async (): Promise<Profile> => {

@@ -8,14 +8,14 @@ datasource db {
 }
 
 model Profile {
-  id          String  @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   title       String
-  bio         String
+  bio         String[]
   email       String
-  avatarUrl   String? @map("avatar_url")
-  githubUrl   String? @map("github_url")
-  linkedinUrl String? @map("linkedin_url")
+  avatarUrl   String?  @map("avatar_url")
+  githubUrl   String?  @map("github_url")
+  linkedinUrl String?  @map("linkedin_url")
 
   @@map("profile")
 }

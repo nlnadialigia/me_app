@@ -8,8 +8,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useProfile } from '@/hooks/useProfile';
 import { useProjects } from '@/hooks/useProjects';
 import { useLanguage } from '@/lib/language-context';
-import { ExternalLink, Github } from 'lucide-react';
-import Link from 'next/link';
+import { ExternalLink, Mail } from 'lucide-react';
+import Image from 'next/image';
 
 export function ExploreContent() {
   const { t } = useLanguage();
@@ -18,74 +18,104 @@ export function ExploreContent() {
 
   return (
     <div className="min-h-screen bg-slate-950">
-      <header className="border-b border-slate-800 bg-slate-900">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-slate-100 hover:text-slate-300 transition">
-            ← Portfolio
-          </Link>
-          <LanguageSwitcher />
-        </div>
-      </header>
+      <Tabs defaultValue="about" className="w-full">
+        <header className="border-b border-slate-800 bg-slate-900 sticky top-0 z-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <TabsList className="bg-transparent border-0 h-full gap-8">
+              <TabsTrigger 
+                value="about" 
+                className="data-[state=active]:bg-transparent data-[state=active]:text-slate-100 data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none text-slate-500 hover:text-slate-300 transition-colors h-full"
+              >
+                {t('explore.aboutMe') || 'Sobre Mim'}
+              </TabsTrigger>
+              <TabsTrigger 
+                value="projects" 
+                className="data-[state=active]:bg-transparent data-[state=active]:text-slate-100 data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none text-slate-500 hover:text-slate-300 transition-colors h-full"
+              >
+                {t('explore.projects') || 'Projetos'}
+              </TabsTrigger>
+            </TabsList>
+            <LanguageSwitcher />
+          </div>
+        </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <Tabs defaultValue="about" className="space-y-8">
-          <TabsList className="bg-slate-900 border border-slate-800 w-full sm:w-auto">
-            <TabsTrigger value="about" className="data-[state=active]:bg-slate-800 data-[state=active]:text-slate-100 flex-1 sm:flex-none">
-              {t('explore.aboutMe') || 'Sobre mim'}
-            </TabsTrigger>
-            <TabsTrigger value="projects" className="data-[state=active]:bg-slate-800 data-[state=active]:text-slate-100 flex-1 sm:flex-none">
-              {t('explore.projects') || 'Projetos'}
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="about" className="space-y-6">
-            <Card className="bg-slate-900 border-slate-800">
-              <CardHeader>
-                <CardTitle className="text-3xl text-slate-100">{profile?.name || 'Developer'}</CardTitle>
-                <CardDescription className="text-lg text-slate-400">
-                  {profile?.title || 'Full Stack Developer'}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <p className="text-slate-300 text-lg leading-relaxed">
-                  {profile?.bio || 'Desenvolvedor apaixonado por criar soluções incríveis.'}
-                </p>
-
-                <div className="space-y-4 pt-6 border-t border-slate-700">
-                  <h3 className="text-xl font-semibold text-slate-100">Contato</h3>
-                  <div className="flex flex-wrap gap-4">
-                    {profile?.email && (
-                      <a href={`mailto:${profile.email}`} className="text-slate-400 hover:text-slate-100 transition">
-                        Email: {profile.email}
-                      </a>
-                    )}
-                    {profile?.githubUrl && (
-                      <a
-                        href={profile.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-slate-400 hover:text-slate-100 transition flex items-center gap-2"
-                      >
-                        <Github className="h-5 w-5" /> GitHub
-                      </a>
-                    )}
-                    {profile?.linkedinUrl && (
-                      <a
-                        href={profile.linkedinUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-slate-400 hover:text-slate-100 transition"
-                      >
-                        LinkedIn
-                      </a>
-                    )}
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <TabsContent value="about" className="mt-0 space-y-12">
+            {/* Seção Principal */}
+            <section className="text-center space-y-6">
+              {profile?.avatarUrl && (
+                <div className="flex justify-center">
+                  <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-slate-700">
+                    <Image 
+                      src={profile.avatarUrl} 
+                      alt={profile.name || 'Profile'} 
+                      fill 
+                      className="object-cover"
+                    />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              )}
+              
+              <div>
+                <h1 className="text-4xl font-bold text-slate-100 mb-2">
+                  {profile?.name || 'Developer'}
+                </h1>
+                <p className="text-xl text-slate-400">
+                  {profile?.title || 'Full Stack Developer'}
+                </p>
+              </div>
+
+              <div className="max-w-2xl mx-auto space-y-4 text-slate-300 text-lg">
+                {profile?.bio?.map((sentence, index) => (
+                  <p key={index}>{sentence}</p>
+                )) || <p>{t('explore.defaultBio') || 'Desenvolvedor apaixonado por criar soluções incríveis.'}</p>}
+              </div>
+            </section>
+
+            {/* Seção de Contato */}
+            <section className="max-w-2xl mx-auto">
+              <Card className="bg-slate-900 border-slate-800">
+                <CardHeader>
+                  <CardTitle className="text-2xl text-slate-100">{t('explore.contact') || 'Contato'}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {profile?.email && (
+                    <a 
+                      href={`mailto:${profile.email}`} 
+                      className="flex items-center gap-3 text-slate-300 hover:text-slate-100 transition-colors"
+                    >
+                      <Mail className="h-5 w-5" />
+                      <span>{profile.email}</span>
+                    </a>
+                  )}
+                  {profile?.githubUrl && (
+                    <a
+                      href={profile.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-slate-300 hover:text-slate-100 transition-colors"
+                    >
+                      <ExternalLink className="h-5 w-5" />
+                      <span>GitHub</span>
+                    </a>
+                  )}
+                  {profile?.linkedinUrl && (
+                    <a
+                      href={profile.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-slate-300 hover:text-slate-100 transition-colors"
+                    >
+                      <ExternalLink className="h-5 w-5" />
+                      <span>LinkedIn</span>
+                    </a>
+                  )}
+                </CardContent>
+              </Card>
+            </section>
           </TabsContent>
 
-          <TabsContent value="projects" className="space-y-6">
+          <TabsContent value="projects" className="mt-0 space-y-6">
             <div>
               <h2 className="text-3xl font-bold text-slate-100 mb-2">{t('explore.myProjects') || 'Meus Projetos'}</h2>
               <p className="text-slate-400">{t('explore.projectsDesc') || 'Confira alguns dos meus trabalhos e projetos'}</p>
@@ -130,9 +160,10 @@ export function ExploreContent() {
                         </a>
                       )}
                       {project.githubUrl && (
-                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                          <Button variant="outline" size="icon" className="bg-slate-800 border-slate-700 hover:bg-slate-700">
-                            <Github className="h-4 w-4 text-slate-300" />
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
+                          <Button variant="outline" className="w-full bg-slate-800 border-slate-700 hover:bg-slate-700 text-slate-300">
+                            <ExternalLink className="mr-2 h-4 w-4" />
+                            {t('explore.viewCode') || 'Código'}
                           </Button>
                         </a>
                       )}
@@ -142,12 +173,8 @@ export function ExploreContent() {
               </div>
             )}
           </TabsContent>
-        </Tabs>
-      </main>
-
-      <footer className="py-8 px-4 text-center text-slate-500 border-t border-slate-800 mt-12">
-        <p>&copy; {new Date().getFullYear()} {profile?.name || 'Portfolio'}. {t('explore.allRightsReserved') || 'Todos os direitos reservados.'}</p>
-      </footer>
+        </main>
+      </Tabs>
     </div>
   );
 }

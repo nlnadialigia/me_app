@@ -43,10 +43,13 @@ export function DashboardContent() {
   async function handleProfileUpdate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const bioText = formData.get('bio') as string;
+    const bioArray = bioText.split('\n').filter(line => line.trim());
+    
     const updates = {
       name: formData.get('name') as string,
       title: formData.get('title') as string,
-      bio: formData.get('bio') as string,
+      bio: bioArray,
       githubUrl: formData.get('github_url') as string,
       linkedinUrl: formData.get('linkedin_url') as string,
       email: formData.get('email') as string,
@@ -134,16 +137,16 @@ export function DashboardContent() {
           <TabsContent value="profile">
             <Card className="bg-slate-900 border-slate-800">
               <CardHeader>
-                <CardTitle className="text-slate-100">{t('admin.profileInfo')}</CardTitle>
+                <CardTitle className="text-slate-100">Informações do Perfil</CardTitle>
                 <CardDescription className="text-slate-400">
-                  {t('admin.updatePersonal')}
+                  Atualize suas informações pessoais e de contato
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleProfileUpdate} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name" className="text-slate-300">{t('admin.name')}</Label>
+                      <Label htmlFor="name" className="text-slate-300">Nome</Label>
                       <Input
                         id="name"
                         name="name"
@@ -152,7 +155,7 @@ export function DashboardContent() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="title" className="text-slate-300">{t('admin.title')}</Label>
+                      <Label htmlFor="title" className="text-slate-300">Título</Label>
                       <Input
                         id="title"
                         name="title"
@@ -163,50 +166,55 @@ export function DashboardContent() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="bio" className="text-slate-300">{t('admin.bio')}</Label>
+                    <Label htmlFor="bio" className="text-slate-300">Bio</Label>
                     <Textarea
                       id="bio"
                       name="bio"
-                      defaultValue={profile?.bio ?? ''}
-                      rows={4}
+                      defaultValue={profile?.bio?.join('\n') ?? ''}
+                      rows={6}
+                      placeholder="Digite cada parágrafo em uma linha separada"
                       className="bg-slate-800 border-slate-700 text-slate-100"
                     />
+                    <p className="text-xs text-slate-500">Cada linha será um parágrafo separado</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="github_url" className="text-slate-300">{t('admin.github')}</Label>
+                      <Label htmlFor="github_url" className="text-slate-300">GitHub</Label>
                       <Input
                         id="github_url"
                         name="github_url"
                         defaultValue={profile?.githubUrl ?? ''}
+                        placeholder="https://github.com/seu-usuario"
                         className="bg-slate-800 border-slate-700 text-slate-100"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="linkedin_url" className="text-slate-300">{t('admin.linkedin')}</Label>
+                      <Label htmlFor="linkedin_url" className="text-slate-300">LinkedIn</Label>
                       <Input
                         id="linkedin_url"
                         name="linkedin_url"
                         defaultValue={profile?.linkedinUrl ?? ''}
+                        placeholder="https://linkedin.com/in/seu-perfil"
                         className="bg-slate-800 border-slate-700 text-slate-100"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-slate-300">{t('admin.email')}</Label>
+                    <Label htmlFor="email" className="text-slate-300">Email</Label>
                     <Input
                       id="email"
                       name="email"
                       type="email"
                       defaultValue={profile?.email ?? ''}
+                      placeholder="seu@email.com"
                       className="bg-slate-800 border-slate-700 text-slate-100"
                     />
                   </div>
 
                   <Button type="submit" disabled={updateProfile.isPending} className="bg-slate-700 hover:bg-slate-600 text-slate-100">
-                    {updateProfile.isPending ? t('common.saving') : t('admin.saveChanges')}
+                    {updateProfile.isPending ? 'Salvando...' : 'Salvar Alterações'}
                   </Button>
                 </form>
               </CardContent>
