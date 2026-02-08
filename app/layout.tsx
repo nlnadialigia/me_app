@@ -9,23 +9,11 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Portfolio - Full Stack Developer',
+  title: 'Portfolio',
   description: 'Professional portfolio of a Full Stack JavaScript and Python developer',
-  openGraph: {
-    images: [
-      {
-        url: 'https://bolt.new/static/og_default.png',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    images: [
-      {
-        url: 'https://bolt.new/static/og_default.png',
-      },
-    ],
-  },
+  icons: {
+    icon: '/favicon.ico',
+  }
 };
 
 export default function RootLayout({

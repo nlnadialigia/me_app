@@ -1,11 +1,12 @@
 export interface Project {
   id: string;
   name: string;
-  description: string;
+  descriptionPt: string;
+  descriptionEn: string;
   liveUrl: string;
   githubUrl: string;
   imageUrl: string;
-  technologies: string[];
+  technologies: Array<{ name: string; color: string }>;
   orderIndex: number;
   createdAt: Date;
   updatedAt: Date;
