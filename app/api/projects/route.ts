@@ -5,8 +5,26 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   try {
     logger.info('GET /api/projects');
-    const projects = await prisma.project.findMany({ orderBy: { orderIndex: 'asc' } });
-    return NextResponse.json(projects);
+    const projects = await prisma.project.findMany({ 
+      orderBy: { orderIndex: 'asc' },
+      include: {
+        technologies: {
+          include: {
+            technology: true
+          }
+        }
+      }
+    });
+    
+    const formattedProjects = projects.map(project => ({
+      ...project,
+      technologies: project.technologies.map(pt => ({
+        name: pt.technology.name,
+        color: pt.technology.color
+      }))
+    }));
+    
+    return NextResponse.json(formattedProjects);
   } catch (error) {
     logger.error(error);
     return new NextResponse('Internal Server Error', { status: 500 });
@@ -17,11 +35,41 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     logger.info('POST /api/projects', { body });
-    const project = await prisma.project.create({ data: body });
-    return NextResponse.json(project);
+    
+    const { technologies: techNames, ...projectData } = body;
+    
+    const project = await prisma.project.create({
+      data: {
+        ...projectData,
+        technologies: {
+          create: techNames?.map((name: string) => ({
+            technology: {
+              connect: { name }
+            }
+          })) || []
+        }
+      },
+      include: {
+        technologies: {
+          include: {
+            technology: true
+          }
+        }
+      }
+    });
+    
+    const formattedProject = {
+      ...project,
+      technologies: project.technologies.map(pt => ({
+        name: pt.technology.name,
+        color: pt.technology.color
+      }))
+    };
+    
+    return NextResponse.json(formattedProject);
   } catch (error) {
-    logger.error(error);
-    return new NextResponse('Bad Request', { status: 400 });
+    logger.error('Error creating project:', error);
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Bad Request' }, { status: 400 });
   }
 }
 
@@ -30,11 +78,44 @@ export async function PUT(request: Request) {
     const body = await request.json();
     if (!body.id) return new NextResponse('Missing id', { status: 400 });
     logger.info('PUT /api/projects', { id: body.id });
-    const project = await prisma.project.update({ where: { id: body.id }, data: body });
-    return NextResponse.json(project);
+    
+    const { id, technologies: techNames, ...projectData } = body;
+    
+    await prisma.projectTechnology.deleteMany({ where: { projectId: id } });
+    
+    const project = await prisma.project.update({
+      where: { id },
+      data: {
+        ...projectData,
+        technologies: {
+          create: techNames?.map((name: string) => ({
+            technology: {
+              connect: { name }
+            }
+          })) || []
+        }
+      },
+      include: {
+        technologies: {
+          include: {
+            technology: true
+          }
+        }
+      }
+    });
+    
+    const formattedProject = {
+      ...project,
+      technologies: project.technologies.map(pt => ({
+        name: pt.technology.name,
+        color: pt.technology.color
+      }))
+    };
+    
+    return NextResponse.json(formattedProject);
   } catch (error) {
     logger.error(error);
-    return new NextResponse('Bad Request', { status: 400 });
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Bad Request' }, { status: 400 });
   }
 }
 

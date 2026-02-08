@@ -20,7 +20,10 @@ export function useCreateProject() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error('Failed to create project');
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.error || 'Failed to create project');
+      }
       return res.json();
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ['projects'] }),

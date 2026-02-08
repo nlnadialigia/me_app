@@ -3,8 +3,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 type Profile = {
   id?: string;
   name?: string | null;
-  title?: string | null;
-  bio?: string[] | null;
+  titlePt?: string | null;
+  titleEn?: string | null;
+  bioPt?: string[] | null;
+  bioEn?: string[] | null;
   githubUrl?: string | null;
   linkedinUrl?: string | null;
   email?: string | null;

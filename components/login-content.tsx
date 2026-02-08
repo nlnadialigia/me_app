@@ -35,21 +35,20 @@ export function LoginContent() {
   return (
     <div className="min-h-screen bg-slate-950 flex items-center justify-center">
       <div className="w-full max-w-md bg-slate-900 border border-slate-800 p-8 rounded">
-        <h1 className="text-2xl font-bold text-slate-100 mb-4">{t('admin.signIn') || 'Admin sign in'}</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label className="text-slate-300">Email</Label>
+            <Label className="text-slate-400">Email</Label>
             <Input value={email} onChange={(e) => setEmail(e.target.value)} required type="email" className="bg-slate-800 text-slate-100" />
           </div>
           <div>
-            <Label className="text-slate-300">Password</Label>
+            <Label className="text-slate-400">Password</Label>
             <Input value={password} onChange={(e) => setPassword(e.target.value)} required type="password" className="bg-slate-800 text-slate-100" />
           </div>
 
           {error && <div className="text-red-400">{error}</div>}
 
-          <Button type="submit" disabled={loading} className="w-full bg-slate-700 hover:bg-slate-600 text-slate-100">
-            {loading ? t('common.loading') : t('admin.signIn')}
+          <Button type="submit" disabled={loading} className="w-full bg-slate-700 hover:bg-slate-600 text-slate-100 mt-4">
+            {loading ? 'Carregando...' : 'Login'}
           </Button>
         </form>
       </div>

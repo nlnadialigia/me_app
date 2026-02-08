@@ -31,7 +31,10 @@ export async function PUT(request: Request) {
 
     return NextResponse.json(result);
   } catch (error) {
-    logger.error(error);
-    return new NextResponse('Bad Request', { status: 400 });
+    logger.error('Error updating profile:', error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Bad Request' },
+      { status: 400 }
+    );
   }
 }
