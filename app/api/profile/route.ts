@@ -16,7 +16,7 @@ export async function GET() {
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    logger.info('PUT /api/profile', { body });
+    logger.info({ body }, 'PUT /api/profile');
     const existing = await prisma.profile.findFirst();
 
     let result;
@@ -31,7 +31,7 @@ export async function PUT(request: Request) {
 
     return NextResponse.json(result);
   } catch (error) {
-    logger.error('Error updating profile:', error);
+    logger.error({ error }, 'Error updating profile');
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Bad Request' },
       { status: 400 }

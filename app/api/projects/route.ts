@@ -34,7 +34,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    logger.info('POST /api/projects', { body });
+    logger.info({ body }, 'POST /api/projects');
     
     const { technologies: techNames, ...projectData } = body;
     
@@ -68,7 +68,7 @@ export async function POST(request: Request) {
     
     return NextResponse.json(formattedProject);
   } catch (error) {
-    logger.error('Error creating project:', error);
+    logger.error({ error }, 'Error creating project');
     return NextResponse.json({ error: error instanceof Error ? error.message : 'Bad Request' }, { status: 400 });
   }
 }
@@ -77,7 +77,7 @@ export async function PUT(request: Request) {
   try {
     const body = await request.json();
     if (!body.id) return new NextResponse('Missing id', { status: 400 });
-    logger.info('PUT /api/projects', { id: body.id });
+    logger.info({ id: body.id }, 'PUT /api/projects');
     
     const { id, technologies: techNames, ...projectData } = body;
     
@@ -124,7 +124,7 @@ export async function DELETE(request: Request) {
     const body = await request.json();
     const { id } = body;
     if (!id) return new NextResponse('Missing id', { status: 400 });
-    logger.info('DELETE /api/projects', { id });
+    logger.info({ id }, 'DELETE /api/projects');
     await prisma.project.delete({ where: { id } });
     return new NextResponse(null, { status: 204 });
   } catch (error) {

@@ -14,7 +14,7 @@ async function main() {
     create: { email, password: hashed, name: 'Admin' },
   });
 
-  logger.info('Seed: admin created/updated:', user.email);
+  logger.info({ email: user.email }, 'Seed: admin created/updated');
 
   const tech = [
     { name: 'React', color: '#61DAFB' },

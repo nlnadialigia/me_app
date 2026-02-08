@@ -28,7 +28,7 @@ function generateColor(name: string): string {
 export async function POST(request: Request) {
   try {
     const { name } = await request.json();
-    logger.info('POST /api/technologies', { name });
+    logger.info({ name }, 'POST /api/technologies');
 
     // Verifica se já existe
     const existing = await prisma.technology.findUnique({
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(technology);
   } catch (error) {
-    logger.error('Error creating technology:', error);
+    logger.error({ error }, 'Error creating technology');
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Bad Request' },
       { status: 400 }
@@ -65,7 +65,7 @@ export async function GET() {
     });
     return NextResponse.json(technologies);
   } catch (error) {
-    logger.error('Error fetching technologies:', error);
+    logger.error({ error }, 'Error fetching technologies');
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }
