@@ -1,14 +1,15 @@
-# 💼 Portfólio Online
+# 💼 Portfólio Pessoal
 
 <div align="center">
 
 ![Made by Nadia Ligia](https://img.shields.io/badge/made%20by-Nadia%20Ligia-blueviolet?style=flat-square)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
-![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=flat-square)
+![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=flat-square&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?style=flat-square&logo=typescript)
 
-**Portfólio pessoal para apresentar meus projetos e trajetória na programação**
+**Aplicação full-stack para gerenciar e exibir portfólio pessoal com painel administrativo**
 
-[Acessar Portfólio](#-sobre) • [GitHub](https://github.com) • [Contato](#-contato)
+[Demo](#) • [Documentação](#-sobre) • [Instalação](#-instalação)
 
 </div>
 
@@ -17,121 +18,292 @@
 ## 📋 Índice
 
 - [Sobre](#-sobre)
+- [Funcionalidades](#-funcionalidades)
 - [Tecnologias](#-tecnologias)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
-- [Como Usar](#-como-usar)
-- [Projetos](#-projetos)
-- [Contato](#-contato)
+- [Instalação](#-instalação)
+- [Configuração](#-configuração)
+- [Scripts](#-scripts)
+- [API](#-api)
 - [Licença](#-licença)
 
 ---
 
 ## 🎯 Sobre
 
-Olá! Sou **Nádia Ligia**, contadora de formação e profissão que decidiu fazer uma transição de carreira para a programação.
+Aplicação moderna de portfólio pessoal desenvolvida com Next.js 16, oferecendo uma interface pública para visualização de projetos e perfil, além de um painel administrativo completo para gerenciamento de conteúdo.
 
-Atualmente sou estudante **Full Stack**, apaixonada por jogos e tecnologia. Incorporei em meus estudos aprofundamentos em conceitos práticos através do desenvolvimento de pequenos projetos e games.
+### Características principais:
 
-Este portfólio foi criado para:
-- 📚 Apresentar meus projetos e aprendizados
-- 🎮 Documentar minha jornada na programação
-- 🚀 Compartilhar conhecimento através do código
+- 🌐 **Multilíngue** - Suporte para Português e Inglês
+- 🔐 **Autenticação** - Sistema de login seguro com NextAuth
+- 📱 **Responsivo** - Interface adaptável para todos os dispositivos
+- 🎨 **Design Moderno** - UI com Tailwind CSS e Shadcn/ui
+- ⚡ **Performance** - SSR e otimizações do Next.js 16
+- 🗄️ **Banco de Dados** - PostgreSQL com Prisma ORM
 
-Você pode acompanhar minha trajetória no [GitHub](https://github.com) ou explorar este portfólio interativo.
+---
+
+## ✨ Funcionalidades
+
+### Área Pública (`/explore`)
+- Visualização de perfil com bio multilíngue
+- Listagem de projetos com tecnologias
+- Links para projetos ao vivo e repositórios
+- Troca de idioma (PT/EN)
+
+### Painel Administrativo (`/admin`)
+- **Autenticação segura** com credenciais
+- **Gerenciamento de Perfil**:
+  - Edição de nome, título e bio (PT/EN)
+  - Upload de avatar
+  - Links de contato (email, GitHub, LinkedIn)
+- **Gerenciamento de Projetos**:
+  - CRUD completo de projetos
+  - Descrições multilíngues
+  - Associação com tecnologias
+  - Ordenação customizada
+  - Links para demo e código
 
 ---
 
 ## 🛠️ Tecnologias
 
 ### Frontend
-- **HTML5** - Estrutura semântica
-- **CSS3** - Estilização e responsividade
-- **JavaScript (Vanilla)** - Interatividade
+- **Next.js 16.1.6** - Framework React com SSR
+- **React 19** - Biblioteca UI
+- **TypeScript** - Tipagem estática
+- **Tailwind CSS 4** - Estilização
+- **Shadcn/ui** - Componentes UI
+- **TanStack Query** - Gerenciamento de estado servidor
+- **Lucide React** - Ícones
 
-### Desenvolvimento
-- **Git & GitHub** - Versionamento
-- **NPM** - Gerenciador de pacotes
+### Backend
+- **Next.js API Routes** - Endpoints REST
+- **NextAuth.js** - Autenticação
+- **Prisma 7** - ORM
+- **PostgreSQL** - Banco de dados
+- **Bcrypt** - Hash de senhas
+- **Pino** - Logging
+
+### DevOps
+- **pnpm** - Gerenciador de pacotes
+- **ESLint** - Linting
+- **TypeScript** - Type checking
 
 ---
 
 ## 📁 Estrutura do Projeto
 
 ```
-Portfolio/
-├── index.html              # Página inicial
-├── package.json            # Dependências do projeto
-├── Readme.md              # Este arquivo
-├── LICENSE                # Licença MIT
-├── images/
-│   └── favicon/           # Ícones da aplicação
-├── scripts/
-│   ├── footer.js          # Script do footer
-│   └── projects.js        # Carregamento de projetos
-├── styles/
-│   ├── general.css        # Estilos globais
-│   ├── index.css          # Estilos da página inicial
-│   ├── about.css          # Estilos da seção sobre
-│   ├── project.css        # Estilos de projeto individual
-│   └── projects.css       # Estilos da listagem de projetos
-└── views/
-    ├── about.html         # Página sobre mim
-    ├── projects.html      # Listagem de projetos
-    └── projects/          # Projetos individuais
-        ├── 30D.html
-        ├── igti.html
-        ├── others.html
-        ├── rocketseat.html
-        └── wizard.html
+me_app/
+├── app/
+│   ├── api/
+│   │   ├── auth/[...nextauth]/    # Autenticação
+│   │   ├── profile/               # API de perfil
+│   │   ├── projects/              # API de projetos
+│   │   └── logs/                  # Logs da aplicação
+│   ├── admin/
+│   │   ├── dashboard/             # Painel admin
+│   │   └── login/                 # Login admin
+│   ├── explore/                   # Área pública
+│   └── layout.tsx                 # Layout raiz
+├── components/
+│   ├── ui/                        # Componentes Shadcn
+│   ├── dashboard-content.tsx      # Conteúdo do dashboard
+│   ├── explore-content.tsx        # Conteúdo público
+│   └── language-switcher.tsx      # Seletor de idioma
+├── hooks/
+│   ├── useProfile.ts              # Hook de perfil
+│   ├── useProjects.ts             # Hook de projetos
+│   └── useTechnologies.ts         # Hook de tecnologias
+├── lib/
+│   ├── auth-context.tsx           # Contexto de autenticação
+│   ├── language-context.tsx       # Contexto de idioma
+│   ├── prisma.ts                  # Cliente Prisma
+│   └── logger.ts                  # Logger Pino
+├── prisma/
+│   ├── schema.prisma              # Schema do banco
+│   └── migrations/                # Migrações
+├── public/                        # Arquivos estáticos
+└── types/                         # Tipos TypeScript
 ```
 
 ---
 
-## 🚀 Como Usar
+## 🚀 Instalação
 
-### Visualizar Localmente
+### Pré-requisitos
 
-1. Clone o repositório:
+- Node.js 18+
+- pnpm 8+
+- PostgreSQL 14+
+
+### Passo a passo
+
+1. **Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/Portfolio.git
-cd Portfolio
+git clone https://github.com/seu-usuario/me_app.git
+cd me_app
 ```
 
-2. Abra o arquivo `index.html` no navegador:
+2. **Instale as dependências**
 ```bash
-# Opção 1: Clique direto no arquivo
-# Opção 2: Use um servidor local
-python -m http.server 8000
-# ou
-npx http-server
+pnpm install
 ```
 
-3. Navegue entre as páginas de projeto e portfólio
+3. **Configure as variáveis de ambiente**
+```bash
+cp .env.example .env
+```
+
+4. **Configure o banco de dados**
+```bash
+# Execute as migrations
+pnpm prisma migrate dev
+
+# (Opcional) Popule com dados iniciais
+pnpm prisma db seed
+```
+
+5. **Inicie o servidor de desenvolvimento**
+```bash
+pnpm dev
+```
+
+Acesse:
+- Área pública: http://localhost:3000/explore
+- Admin: http://localhost:3000/admin/login
 
 ---
 
-## 🎮 Projetos
+## ⚙️ Configuração
 
-Alguns dos principais projetos inclusos:
+### Variáveis de Ambiente
 
-- **30D Challenge** - Desafio de 30 dias de programação
-- **IGTI** - Projetos do bootcamp IGTI
-- **Rocketseat** - Cursos da plataforma Rocketseat
-- **Game Wizard** - Pequeno jogo educativo
-- **Outros Projetos** - Experimentações e exercícios práticos
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/portfolio_db"
+
+# NextAuth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="sua-chave-secreta-aqui"
+
+# Admin Credentials (para primeiro acesso)
+ADMIN_EMAIL="admin@example.com"
+ADMIN_PASSWORD="senha-segura"
+```
+
+### Banco de Dados
+
+O schema Prisma inclui:
+
+- **Profile** - Informações do perfil (nome, bio, contatos)
+- **Project** - Projetos do portfólio
+- **Technology** - Tecnologias disponíveis
+- **ProjectTechnology** - Relação many-to-many
+- **User** - Usuários do sistema
+- **Account/Session** - Dados do NextAuth
 
 ---
 
-## 💬 Contato
+## 📜 Scripts
 
-Quer conversar ou conhecer mais sobre meus projetos?
+```bash
+# Desenvolvimento
+pnpm dev              # Inicia servidor dev (limpa .next)
+pnpm build            # Build de produção
+pnpm start            # Inicia servidor de produção
 
-- **GitHub**: [github.com/seu-usuario](https://github.com)
-- **LinkedIn**: [linkedin.com/in/seu-perfil](https://linkedin.com)
-- **Email**: seu-email@email.com
+# Qualidade de código
+pnpm lint             # Executa ESLint
+pnpm typecheck        # Verifica tipos TypeScript
+
+# Banco de dados
+pnpm prisma migrate dev       # Cria e aplica migration
+pnpm prisma db push           # Sincroniza schema sem migration
+pnpm prisma studio            # Interface visual do banco
+pnpm prisma generate          # Gera Prisma Client
+```
 
 ---
 
-## 📄 Licença
+## 🔌 API
+
+### Endpoints Públicos
+
+#### `GET /api/profile`
+Retorna dados do perfil
+
+**Response:**
+```json
+{
+  "id": "...",
+  "name": "Nádia Ligia",
+  "titlePt": "Desenvolvedora Full Stack",
+  "titleEn": "Full Stack Developer",
+  "bioPt": ["..."],
+  "bioEn": ["..."],
+  "email": "email@example.com",
+  "avatarUrl": "https://...",
+  "githubUrl": "https://github.com/...",
+  "linkedinUrl": "https://linkedin.com/in/..."
+}
+```
+
+#### `GET /api/projects`
+Lista todos os projetos com tecnologias
+
+**Response:**
+```json
+[
+  {
+    "id": "...",
+    "name": "Projeto X",
+    "descriptionPt": "...",
+    "descriptionEn": "...",
+    "liveUrl": "https://...",
+    "githubUrl": "https://...",
+    "technologies": [
+      { "name": "React", "color": "#61dafb" }
+    ],
+    "orderIndex": 0
+  }
+]
+```
+
+### Endpoints Protegidos (requer autenticação)
+
+#### `PUT /api/profile`
+Atualiza perfil
+
+#### `POST /api/projects`
+Cria novo projeto
+
+**Body:**
+```json
+{
+  "name": "Projeto",
+  "descriptionPt": "...",
+  "descriptionEn": "...",
+  "liveUrl": "https://...",
+  "githubUrl": "https://...",
+  "technologies": ["React", "Node.js"],
+  "orderIndex": 0
+}
+```
+
+#### `PUT /api/projects`
+Atualiza projeto existente
+
+#### `DELETE /api/projects`
+Remove projeto
+
+---
+
+## 📝 Licença
 
 Este projeto está sob a licença **MIT**. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
@@ -139,6 +311,6 @@ Este projeto está sob a licença **MIT**. Veja o arquivo [LICENSE](LICENSE) par
 
 <div align="center">
 
-**Feito com ❤️ por Nádia Ligia**
+**Desenvolvido com ❤️ por [Nádia Ligia](https://github.com/nlnadialigia)**
 
 </div>
